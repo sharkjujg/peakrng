@@ -1,6 +1,8 @@
 // PeakRNG badge rules. Each rule is a deterministic predicate over known fields: a value Wikidata does not have never matches.
 // test(m, poolDate) and evidence(m, poolDate) read the prepared member from prep().
 
+export const RULESET = '2'; // 2: common band badges added so no record earns nothing
+
 export const norm = (s) => s.normalize('NFKC').toLowerCase();
 
 const pos = (x) => (typeof x === 'number' && Number.isFinite(x) && x > 0 ? x : null); // zero or absent is unknown, never a real value
@@ -51,4 +53,8 @@ export const RULES = [
   { id: 'alps-peak', name: 'Alps Peak', family: 'Famous range', rule: 'Listed in a range whose name contains "Alps"', test: (m) => m.ranged !== null && m.ranged.includes('alps'), evidence: (m) => `${m.name} belongs to the ${m.range}` },
   { id: 'round-height', name: 'Round Height', family: 'Number pattern', rule: 'Elevation of 1,000 m or more that is a whole multiple of 100 m',
     test: (m) => m.elevation !== null && m.elevation >= 1000 && m.elevation % 100 === 0, evidence: high },
+  { id: 'highland', name: 'Highland', family: 'Height', rule: 'Elevation from 500 m up to, but not including, 1,000 m', test: (m) => m.elevation !== null && m.elevation >= 500 && m.elevation < 1000, evidence: high },
+  { id: 'northern-hemisphere', name: 'Northern Hemisphere', family: 'Hemisphere', rule: 'North of the equator', test: (m) => m.lat !== null && m.lat > 0, evidence: lat },
+  { id: 'eastern-hemisphere', name: 'Eastern Hemisphere', family: 'Longitude', rule: 'East of the prime meridian', test: (m) => m.lon !== null && m.lon > 0, evidence: (m) => `${m.name} is at longitude ${m.lon}°` },
+  { id: 'western-hemisphere', name: 'Western Hemisphere', family: 'Longitude', rule: 'West of the prime meridian', test: (m) => m.lon !== null && m.lon < 0, evidence: (m) => `${m.name} is at longitude ${m.lon}°` },
 ];

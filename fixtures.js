@@ -26,6 +26,10 @@ export const cases = [
   ['himalayan', { range: 'Himalayas' }, true], ['himalayan', { range: 'Greater Himalaya' }, true], ['himalayan', { range: 'Pennine Alps' }, false], ['himalayan', { range: null }, false],
   ['alps-peak', { range: 'Pennine Alps' }, true], ['alps-peak', { range: 'Julian Alps' }, true], ['alps-peak', { range: 'Himalayas' }, false], ['alps-peak', { range: undefined }, false],
   ['round-height', { elevation: 3000 }, true], ['round-height', { elevation: 1000 }, true], ['round-height', { elevation: 900 }, false], ['round-height', { elevation: 3010 }, false], ['round-height', { elevation: null }, false],
+  ['highland', { elevation: 500 }, true], ['highland', { elevation: 999.9 }, true], ['highland', { elevation: 1000 }, false], ['highland', { elevation: 499.9 }, false], ['highland', { elevation: null }, false], ['highland', { elevation: 0 }, false],
+  ['northern-hemisphere', { lat: 0.1 }, true], ['northern-hemisphere', { lat: 0 }, false], ['northern-hemisphere', { lat: -1 }, false], ['northern-hemisphere', { lat: null }, false],
+  ['eastern-hemisphere', { lon: 0.1 }, true], ['eastern-hemisphere', { lon: 0 }, false], ['eastern-hemisphere', { lon: -8 }, false], ['eastern-hemisphere', { lon: null }, false],
+  ['western-hemisphere', { lon: -0.1 }, true], ['western-hemisphere', { lon: 0 }, false], ['western-hemisphere', { lon: 8 }, false], ['western-hemisphere', { lon: null }, false],
 ];
 
 export function poolChecks(raw, pool, ok) {
